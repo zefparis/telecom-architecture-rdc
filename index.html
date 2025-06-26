@@ -7,18 +7,19 @@
   <style>
     body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f8fd; color: #212941; margin: 0; line-height: 1.6; }
     header { background: linear-gradient(135deg, #003066, #1451b8); color: #fff; padding: 24px 0; text-align: center; font-size: 2rem; font-weight: 700; letter-spacing: 0.05em; }
-    nav { background: #e6ecfa; text-align: center; padding: 0.8em 0; box-shadow: 0 2px 10px #1850c724; }
-    nav a { color: #1451b8; text-decoration: none; margin: 0 12px; font-size: 1.05em; font-weight: 600; transition: all .2s; padding: 8px 12px; border-radius: 6px; }
+    nav { background: #e6ecfa; text-align: center; padding: 0.8em 0; box-shadow: 0 2px 10px #1850c724; overflow-x: auto; white-space: nowrap; }
+    nav a { color: #1451b8; text-decoration: none; margin: 0 8px; font-size: 1.05em; font-weight: 600; transition: all .2s; padding: 8px 12px; border-radius: 6px; display: inline-block; }
     nav a.active, nav a:hover { color: #003066; background: rgba(20, 81, 184, 0.1); }
     main { max-width: 1200px; margin: 36px auto; background: #fff; border-radius: 16px; box-shadow: 0 8px 32px rgba(24, 80, 199, 0.12); padding: 44px 40px; min-height: 400px; }
     .section { display: none; }
     .section.active { display: block; }
-    h2 { color: #1850c7; margin-top: 0; border-bottom: 2px solid #e6ecfa; padding-bottom: 12px; }
-    h3 { color: #003066; margin-top: 32px; }
-    h4 { color: #1451b8; margin-top: 24px; }
-    table { width: 100%; border-collapse: collapse; margin: 26px 0; font-size: 0.95em; }
-    th, td { border: 1px solid #e0e8fc; padding: 12px 10px; text-align: left; vertical-align: top; }
+    h2 { color: #1850c7; margin-top: 0; border-bottom: 2px solid #e6ecfa; padding-bottom: 12px; font-size: 1.8rem; }
+    h3 { color: #003066; margin-top: 32px; font-size: 1.4rem; }
+    h4 { color: #1451b8; margin-top: 24px; font-size: 1.2rem; }
+    table { width: 100%; border-collapse: collapse; margin: 26px 0; font-size: 0.95em; overflow-x: auto; display: block; white-space: nowrap; }
+    th, td { border: 1px solid #e0e8fc; padding: 12px 10px; text-align: left; vertical-align: top; min-width: 100px; }
     th { background: linear-gradient(135deg, #e9f3ff, #f6faff); font-weight: 600; }
+    tr { display: table-row; }
     tr:nth-child(even) { background: #f9fbff; }
     .critical { background: #fff3e0 !important; border-left: 4px solid #ff9800; }
     .budget-total { background: #e8f5e8; font-weight: bold; font-size: 1.1em; }
@@ -29,11 +30,67 @@
     .card { background: #f8faff; border-radius: 8px; padding: 20px; border: 1px solid #e0e8fc; }
     ul li { margin-bottom: 8px; }
     .highlight { background: #fff9c4; padding: 2px 6px; border-radius: 4px; }
+    
+    /* Responsive breakpoints */
+    @media (max-width: 1024px) {
+      main { margin: 20px; padding: 30px 25px; }
+      header { font-size: 1.8rem; padding: 20px 0; }
+      h2 { font-size: 1.6rem; }
+      h3 { font-size: 1.3rem; }
+      h4 { font-size: 1.1rem; }
+      .grid { gap: 15px; }
+    }
+    
     @media (max-width: 768px) {
-      main { padding: 20px; margin: 20px 10px; }
-      .grid { grid-template-columns: 1fr; }
-      table { font-size: 0.85em; }
-      nav a { margin: 0 6px; font-size: 0.95em; }
+      main { margin: 15px 10px; padding: 20px 15px; }
+      header { font-size: 1.4rem; padding: 16px 10px; }
+      nav { padding: 0.6em 0; }
+      nav a { margin: 0 4px; font-size: 0.95em; padding: 6px 8px; }
+      .grid { grid-template-columns: 1fr; gap: 15px; }
+      table { font-size: 0.85em; display: block; overflow-x: auto; white-space: nowrap; }
+      th, td { padding: 8px 6px; min-width: 80px; font-size: 0.9em; }
+      .spec-box, .warning { padding: 12px; margin: 12px 0; }
+      h2 { font-size: 1.4rem; }
+      h3 { font-size: 1.2rem; margin-top: 24px; }
+      h4 { font-size: 1.1rem; margin-top: 20px; }
+    }
+    
+    @media (max-width: 480px) {
+      main { margin: 10px 5px; padding: 15px 10px; }
+      header { font-size: 1.2rem; padding: 12px 8px; line-height: 1.3; }
+      nav { padding: 0.5em 0; }
+      nav a { margin: 0 2px; font-size: 0.85em; padding: 4px 6px; }
+      table { font-size: 0.75em; }
+      th, td { padding: 6px 4px; min-width: 60px; font-size: 0.8em; }
+      .spec-box, .warning { padding: 10px; margin: 10px 0; }
+      .card { padding: 15px; }
+      h2 { font-size: 1.3rem; }
+      h3 { font-size: 1.1rem; margin-top: 20px; }
+      h4 { font-size: 1rem; margin-top: 16px; }
+      ul li { margin-bottom: 6px; font-size: 0.95em; }
+    }
+    
+    @media (max-width: 320px) {
+      main { margin: 5px; padding: 10px 8px; }
+      header { font-size: 1rem; padding: 10px 5px; }
+      nav a { font-size: 0.8em; padding: 3px 5px; }
+      table { font-size: 0.7em; }
+      th, td { padding: 4px 3px; min-width: 50px; }
+      h2 { font-size: 1.2rem; }
+      h3 { font-size: 1rem; }
+      h4 { font-size: 0.95rem; }
+    }
+    
+    /* Table responsive wrapper */
+    .table-wrapper { overflow-x: auto; margin: 20px 0; }
+    .table-wrapper table { display: table; white-space: normal; min-width: 600px; }
+    
+    @media (max-width: 768px) {
+      .table-wrapper table { min-width: 500px; }
+    }
+    
+    @media (max-width: 480px) {
+      .table-wrapper table { min-width: 400px; }
     }
   </style>
   <script>
@@ -110,61 +167,65 @@
       <h3>Niveau 1 - Collecte Terrain</h3>
       <div class="spec-box">
         <h4>Équipes Mobiles d'Intervention (EMI)</h4>
-        <table>
-          <tr><th>Composant</th><th>Spécification</th><th>Usage</th></tr>
-          <tr>
-            <td>Valise IMSI-Catcher</td>
-            <td>BladeRF x40 + antennes GSM 900/1800 MHz + LTE B3/B7</td>
-            <td>Identification d'abonnés dans un rayon de 2km</td>
-          </tr>
-          <tr>
-            <td>Analyseur de spectre portable</td>
-            <td>RF Explorer 6G Combo (24 MHz - 6 GHz)</td>
-            <td>Détection de brouillage et analyse RF</td>
-          </tr>
-          <tr>
-            <td>PC durci</td>
-            <td>Panasonic Toughbook CF-33 + logiciels dédiés</td>
-            <td>Interface opérateur et remontée données</td>
-          </tr>
-          <tr>
-            <td>Communication sécurisée</td>
-            <td>Radio Tetra Sepura SC21 + chiffrement AES-256</td>
-            <td>Liaison avec centre de commandement</td>
-          </tr>
-        </table>
+        <div class="table-wrapper">
+          <table>
+            <tr><th>Composant</th><th>Spécification</th><th>Usage</th></tr>
+            <tr>
+              <td>Valise IMSI-Catcher</td>
+              <td>BladeRF x40 + antennes GSM 900/1800 MHz + LTE B3/B7</td>
+              <td>Identification d'abonnés dans un rayon de 2km</td>
+            </tr>
+            <tr>
+              <td>Analyseur de spectre portable</td>
+              <td>RF Explorer 6G Combo (24 MHz - 6 GHz)</td>
+              <td>Détection de brouillage et analyse RF</td>
+            </tr>
+            <tr>
+              <td>PC durci</td>
+              <td>Panasonic Toughbook CF-33 + logiciels dédiés</td>
+              <td>Interface opérateur et remontée données</td>
+            </tr>
+            <tr>
+              <td>Communication sécurisée</td>
+              <td>Radio Tetra Sepura SC21 + chiffrement AES-256</td>
+              <td>Liaison avec centre de commandement</td>
+            </tr>
+          </table>
+        </div>
       </div>
 
       <h3>Niveau 2 - Sondes Passives Réseau</h3>
       <div class="spec-box">
         <h4>Points de Collecte Backbone</h4>
-        <table>
-          <tr><th>Emplacement</th><th>Technologie</th><th>Capacité</th><th>Redondance</th></tr>
-          <tr>
-            <td>Centraux téléphoniques</td>
-            <td>Tap optique 40Gbps bidirectionnel</td>
-            <td>100% du trafic national</td>
-            <td>Double alimentation + UPS</td>
-          </tr>
-          <tr>
-            <td>Stations de base 4G/5G</td>
-            <td>Sonde S1/S6a interface (3GPP)</td>
-            <td>Métadonnées temps réel</td>
-            <td>Liaison satellite backup</td>
-          </tr>
-          <tr>
-            <td>Passerelles Internet</td>
-            <td>DPI 100Gbps (Deep Packet Inspection)</td>
-            <td>Analyse protocolaire complète</td>
-            <td>Cluster actif/passif</td>
-          </tr>
-          <tr>
-            <td>Câbles sous-marins</td>
-            <td>Splitter optique 1:2 passif</td>
-            <td>Trafic international</td>
-            <td>Monitoring environnemental</td>
-          </tr>
-        </table>
+        <div class="table-wrapper">
+          <table>
+            <tr><th>Emplacement</th><th>Technologie</th><th>Capacité</th><th>Redondance</th></tr>
+            <tr>
+              <td>Centraux téléphoniques</td>
+              <td>Tap optique 40Gbps bidirectionnel</td>
+              <td>100% du trafic national</td>
+              <td>Double alimentation + UPS</td>
+            </tr>
+            <tr>
+              <td>Stations de base 4G/5G</td>
+              <td>Sonde S1/S6a interface (3GPP)</td>
+              <td>Métadonnées temps réel</td>
+              <td>Liaison satellite backup</td>
+            </tr>
+            <tr>
+              <td>Passerelles Internet</td>
+              <td>DPI 100Gbps (Deep Packet Inspection)</td>
+              <td>Analyse protocolaire complète</td>
+              <td>Cluster actif/passif</td>
+            </tr>
+            <tr>
+              <td>Câbles sous-marins</td>
+              <td>Splitter optique 1:2 passif</td>
+              <td>Trafic international</td>
+              <td>Monitoring environnemental</td>
+            </tr>
+          </table>
+        </div>
       </div>
 
       <h3>Niveau 3 - Traitement et Analyse</h3>
@@ -195,129 +256,135 @@
       <h2>Spécifications Matérielles Complètes</h2>
 
       <h3>Équipements de Terrain (par équipe mobile)</h3>
-      <table>
-        <tr><th>Équipement</th><th>Modèle Exact</th><th>Spécifications</th><th>Prix Unitaire (€)</th><th>Quantité</th><th>Total (€)</th></tr>
-        <tr>
-          <td>Valise IMSI-Catcher</td>
-          <td>BladeRF x40 + Kit GSM</td>
-          <td>40 MHz bandwidth, 300 MHz - 3.8 GHz</td>
-          <td>2,500</td>
-          <td>8</td>
-          <td>20,000</td>
-        </tr>
-        <tr>
-          <td>PC Durci</td>
-          <td>Panasonic Toughbook CF-33</td>
-          <td>Intel Core i5, 16GB RAM, IP65, -20°C/+60°C</td>
-          <td>3,200</td>
-          <td>8</td>
-          <td>25,600</td>
-        </tr>
-        <tr>
-          <td>Analyseur RF</td>
-          <td>RF Explorer 6G Combo</td>
-          <td>24 MHz - 6 GHz, -110 dBm sensibilité</td>
-          <td>800</td>
-          <td>8</td>
-          <td>6,400</td>
-        </tr>
-        <tr>
-          <td>Radio Tetra</td>
-          <td>Sepura SC21</td>
-          <td>380-470 MHz, chiffrement AES-256</td>
-          <td>1,500</td>
-          <td>8</td>
-          <td>12,000</td>
-        </tr>
-        <tr>
-          <td>Véhicule équipé</td>
-          <td>Toyota Land Cruiser modifié</td>
-          <td>Générateur 5kW, climatisation, antennes</td>
-          <td>45,000</td>
-          <td>4</td>
-          <td>180,000</td>
-        </tr>
-      </table>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Équipement</th><th>Modèle Exact</th><th>Spécifications</th><th>Prix Unitaire (€)</th><th>Quantité</th><th>Total (€)</th></tr>
+          <tr>
+            <td>Valise IMSI-Catcher</td>
+            <td>BladeRF x40 + Kit GSM</td>
+            <td>40 MHz bandwidth, 300 MHz - 3.8 GHz</td>
+            <td>2,500</td>
+            <td>8</td>
+            <td>20,000</td>
+          </tr>
+          <tr>
+            <td>PC Durci</td>
+            <td>Panasonic Toughbook CF-33</td>
+            <td>Intel Core i5, 16GB RAM, IP65, -20°C/+60°C</td>
+            <td>3,200</td>
+            <td>8</td>
+            <td>25,600</td>
+          </tr>
+          <tr>
+            <td>Analyseur RF</td>
+            <td>RF Explorer 6G Combo</td>
+            <td>24 MHz - 6 GHz, -110 dBm sensibilité</td>
+            <td>800</td>
+            <td>8</td>
+            <td>6,400</td>
+          </tr>
+          <tr>
+            <td>Radio Tetra</td>
+            <td>Sepura SC21</td>
+            <td>380-470 MHz, chiffrement AES-256</td>
+            <td>1,500</td>
+            <td>8</td>
+            <td>12,000</td>
+          </tr>
+          <tr>
+            <td>Véhicule équipé</td>
+            <td>Toyota Land Cruiser modifié</td>
+            <td>Générateur 5kW, climatisation, antennes</td>
+            <td>45,000</td>
+            <td>4</td>
+            <td>180,000</td>
+          </tr>
+        </table>
+      </div>
 
       <h3>Infrastructure Réseau (par site fixe)</h3>
-      <table>
-        <tr><th>Composant</th><th>Modèle</th><th>Capacité</th><th>Prix (€)</th><th>Sites</th><th>Total (€)</th></tr>
-        <tr>
-          <td>Tap Optique</td>
-          <td>Profitap ProfiSight 40G</td>
-          <td>40 Gbps bidirectionnel, 4 ports</td>
-          <td>8,500</td>
-          <td>15</td>
-          <td>127,500</td>
-        </tr>
-        <tr>
-          <td>Serveur DPI</td>
-          <td>Dell PowerEdge R750</td>
-          <td>2x Xeon Gold 6338, 256GB RAM, 2x25GbE</td>
-          <td>12,000</td>
-          <td>15</td>
-          <td>180,000</td>
-        </tr>
-        <tr>
-          <td>Stockage Local</td>
-          <td>Dell PowerVault ME484</td>
-          <td>96TB utilisable, SSD NVMe</td>
-          <td>25,000</td>
-          <td>15</td>
-          <td>375,000</td>
-        </tr>
-        <tr>
-          <td>Switch Réseau</td>
-          <td>Cisco Catalyst 9300-48T</td>
-          <td>48 ports 1GbE + 4 x 25GbE uplink</td>
-          <td>4,500</td>
-          <td>15</td>
-          <td>67,500</td>
-        </tr>
-        <tr class="critical">
-          <td>Groupe Électrogène</td>
-          <td>Caterpillar C4.4 50kVA</td>
-          <td>Autonomie 72h, démarrage auto <10s</td>
-          <td>18,000</td>
-          <td>15</td>
-          <td>270,000</td>
-        </tr>
-      </table>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Composant</th><th>Modèle</th><th>Capacité</th><th>Prix (€)</th><th>Sites</th><th>Total (€)</th></tr>
+          <tr>
+            <td>Tap Optique</td>
+            <td>Profitap ProfiSight 40G</td>
+            <td>40 Gbps bidirectionnel, 4 ports</td>
+            <td>8,500</td>
+            <td>15</td>
+            <td>127,500</td>
+          </tr>
+          <tr>
+            <td>Serveur DPI</td>
+            <td>Dell PowerEdge R750</td>
+            <td>2x Xeon Gold 6338, 256GB RAM, 2x25GbE</td>
+            <td>12,000</td>
+            <td>15</td>
+            <td>180,000</td>
+          </tr>
+          <tr>
+            <td>Stockage Local</td>
+            <td>Dell PowerVault ME484</td>
+            <td>96TB utilisable, SSD NVMe</td>
+            <td>25,000</td>
+            <td>15</td>
+            <td>375,000</td>
+          </tr>
+          <tr>
+            <td>Switch Réseau</td>
+            <td>Cisco Catalyst 9300-48T</td>
+            <td>48 ports 1GbE + 4 x 25GbE uplink</td>
+            <td>4,500</td>
+            <td>15</td>
+            <td>67,500</td>
+          </tr>
+          <tr class="critical">
+            <td>Groupe Électrogène</td>
+            <td>Caterpillar C4.4 50kVA</td>
+            <td>Autonomie 72h, démarrage auto <10s</td>
+            <td>18,000</td>
+            <td>15</td>
+            <td>270,000</td>
+          </tr>
+        </table>
+      </div>
 
       <h3>Centre de Données Principal (Kinshasa)</h3>
-      <table>
-        <tr><th>Système</th><th>Configuration</th><th>Justification</th><th>Coût (€)</th></tr>
-        <tr>
-          <td>Serveurs Calcul</td>
-          <td>4x Dell R750xa (GPU Tesla V100)</td>
-          <td>IA/ML pour détection d'anomalies</td>
-          <td>180,000</td>
-        </tr>
-        <tr>
-          <td>Stockage Centralisé</td>
-          <td>Dell PowerScale F900 (500TB)</td>
-          <td>Rétention 90 jours, RAID 6</td>
-          <td>320,000</td>
-        </tr>
-        <tr>
-          <td>Réseau Backbone</td>
-          <td>Cisco Nexus 9000 Series</td>
-          <td>100Gbps entre sites</td>
-          <td>85,000</td>
-        </tr>
-        <tr>
-          <td>Sécurité Physique</td>
-          <td>Système biométrique + coffre-fort</td>
-          <td>Protection clés de chiffrement</td>
-          <td>45,000</td>
-        </tr>
-        <tr>
-          <td>Centre de Commandement</td>
-          <td>12 écrans 55" + 8 postes analystes</td>
-          <td>Supervision 24/7</td>
-          <td>120,000</td>
-        </tr>
-      </table>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Système</th><th>Configuration</th><th>Justification</th><th>Coût (€)</th></tr>
+          <tr>
+            <td>Serveurs Calcul</td>
+            <td>4x Dell R750xa (GPU Tesla V100)</td>
+            <td>IA/ML pour détection d'anomalies</td>
+            <td>180,000</td>
+          </tr>
+          <tr>
+            <td>Stockage Centralisé</td>
+            <td>Dell PowerScale F900 (500TB)</td>
+            <td>Rétention 90 jours, RAID 6</td>
+            <td>320,000</td>
+          </tr>
+          <tr>
+            <td>Réseau Backbone</td>
+            <td>Cisco Nexus 9000 Series</td>
+            <td>100Gbps entre sites</td>
+            <td>85,000</td>
+          </tr>
+          <tr>
+            <td>Sécurité Physique</td>
+            <td>Système biométrique + coffre-fort</td>
+            <td>Protection clés de chiffrement</td>
+            <td>45,000</td>
+          </tr>
+          <tr>
+            <td>Centre de Commandement</td>
+            <td>12 écrans 55" + 8 postes analystes</td>
+            <td>Supervision 24/7</td>
+            <td>120,000</td>
+          </tr>
+        </table>
+      </div>
     </section>
 
     <!-- IMPLÉMENTATION -->
@@ -351,33 +418,35 @@
       <h3>Phase 2 : Déploiement Pilote (6 mois)</h3>
       <div class="spec-box">
         <h4>Sites Pilotes : Kinshasa + Lubumbashi</h4>
-        <table>
-          <tr><th>Activité</th><th>Durée</th><th>Ressources</th><th>Livrable</th></tr>
-          <tr>
-            <td>Installation matériel</td>
-            <td>8 semaines</td>
-            <td>2 équipes techniques + 1 intégrateur</td>
-            <td>2 sites opérationnels</td>
-          </tr>
-          <tr>
-            <td>Intégration logicielle</td>
-            <td>6 semaines</td>
-            <td>4 développeurs + 2 sys-admin</td>
-            <td>Plateforme de supervision</td>
-          </tr>
-          <tr>
-            <td>Tests et validation</td>
-            <td>4 semaines</td>
-            <td>Équipe complète</td>
-            <td>Procédures opérationnelles</td>
-          </tr>
-          <tr>
-            <td>Formation opérateurs</td>
-            <td>4 semaines</td>
-            <td>Formateurs externes</td>
-            <td>Équipes autonomes</td>
-          </tr>
-        </table>
+        <div class="table-wrapper">
+          <table>
+            <tr><th>Activité</th><th>Durée</th><th>Ressources</th><th>Livrable</th></tr>
+            <tr>
+              <td>Installation matériel</td>
+              <td>8 semaines</td>
+              <td>2 équipes techniques + 1 intégrateur</td>
+              <td>2 sites opérationnels</td>
+            </tr>
+            <tr>
+              <td>Intégration logicielle</td>
+              <td>6 semaines</td>
+              <td>4 développeurs + 2 sys-admin</td>
+              <td>Plateforme de supervision</td>
+            </tr>
+            <tr>
+              <td>Tests et validation</td>
+              <td>4 semaines</td>
+              <td>Équipe complète</td>
+              <td>Procédures opérationnelles</td>
+            </tr>
+            <tr>
+              <td>Formation opérateurs</td>
+              <td>4 semaines</td>
+              <td>Formateurs externes</td>
+              <td>Équipes autonomes</td>
+            </tr>
+          </table>
+        </div>
       </div>
 
       <h3>Phase 3 : Déploiement National (18 mois)</h3>
@@ -408,71 +477,75 @@
       <h2>Analyse Budgétaire Détaillée</h2>
 
       <h3>Investissement Initial (CAPEX)</h3>
-      <table>
-        <tr><th>Catégorie</th><th>Description</th><th>Montant (€)</th><th>% Total</th></tr>
-        <tr>
-          <td>Équipements Terrain</td>
-          <td>8 kits complets + 4 véhicules</td>
-          <td>244,000</td>
-          <td>12%</td>
-        </tr>
-        <tr>
-          <td>Infrastructure Réseau</td>
-          <td>15 sites de collecte + équipements</td>
-          <td>1,020,000</td>
-          <td>50%</td>
-        </tr>
-        <tr>
-          <td>Centre de Données</td>
-          <td>Serveurs, stockage, centre de commandement</td>
-          <td>750,000</td>
-          <td>37%</td>
-        </tr>
-        <tr class="budget-total">
-          <td colspan="2"><strong>TOTAL CAPEX</strong></td>
-          <td><strong>2,014,000</strong></td>
-          <td><strong>100%</strong></td>
-        </tr>
-      </table>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Catégorie</th><th>Description</th><th>Montant (€)</th><th>% Total</th></tr>
+          <tr>
+            <td>Équipements Terrain</td>
+            <td>8 kits complets + 4 véhicules</td>
+            <td>244,000</td>
+            <td>12%</td>
+          </tr>
+          <tr>
+            <td>Infrastructure Réseau</td>
+            <td>15 sites de collecte + équipements</td>
+            <td>1,020,000</td>
+            <td>50%</td>
+          </tr>
+          <tr>
+            <td>Centre de Données</td>
+            <td>Serveurs, stockage, centre de commandement</td>
+            <td>750,000</td>
+            <td>37%</td>
+          </tr>
+          <tr class="budget-total">
+            <td colspan="2"><strong>TOTAL CAPEX</strong></td>
+            <td><strong>2,014,000</strong></td>
+            <td><strong>100%</strong></td>
+          </tr>
+        </table>
+      </div>
 
       <h3>Coûts Opérationnels Annuels (OPEX)</h3>
-      <table>
-        <tr><th>Poste</th><th>Détail</th><th>Coût Annuel (€)</th></tr>
-        <tr>
-          <td>Personnel</td>
-          <td>32 analystes + 8 techniciens (salaire moyen 1,200€/mois RDC)</td>
-          <td>576,000</td>
-        </tr>
-        <tr>
-          <td>Maintenance Matériel</td>
-          <td>12% de la valeur équipements</td>
-          <td>241,680</td>
-        </tr>
-        <tr>
-          <td>Énergie</td>
-          <td>Électricité + carburant générateurs (2,5MW total)</td>
-          <td>180,000</td>
-        </tr>
-        <tr>
-          <td>Télécommunications</td>
-          <td>Liaisons satellite + Internet (100Mbps par site)</td>
-          <td>96,000</td>
-        </tr>
-        <tr>
-          <td>Sécurité Physique</td>
-          <td>Gardiennage armé 24/7 (15 sites)</td>
-          <td>108,000</td>
-        </tr>
-        <tr>
-          <td>Formation Continue</td>
-          <td>Mise à jour compétences techniques</td>
-          <td>45,000</td>
-        </tr>
-        <tr class="budget-total">
-          <td colspan="2"><strong>TOTAL OPEX ANNUEL</strong></td>
-          <td><strong>1,246,680</strong></td>
-        </tr>
-      </table>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Poste</th><th>Détail</th><th>Coût Annuel (€)</th></tr>
+          <tr>
+            <td>Personnel</td>
+            <td>32 analystes + 8 techniciens (salaire moyen 1,200€/mois RDC)</td>
+            <td>576,000</td>
+          </tr>
+          <tr>
+            <td>Maintenance Matériel</td>
+            <td>12% de la valeur équipements</td>
+            <td>241,680</td>
+          </tr>
+          <tr>
+            <td>Énergie</td>
+            <td>Électricité + carburant générateurs (2,5MW total)</td>
+            <td>180,000</td>
+          </tr>
+          <tr>
+            <td>Télécommunications</td>
+            <td>Liaisons satellite + Internet (100Mbps par site)</td>
+            <td>96,000</td>
+          </tr>
+          <tr>
+            <td>Sécurité Physique</td>
+            <td>Gardiennage armé 24/7 (15 sites)</td>
+            <td>108,000</td>
+          </tr>
+          <tr>
+            <td>Formation Continue</td>
+            <td>Mise à jour compétences techniques</td>
+            <td>45,000</td>
+          </tr>
+          <tr class="budget-total">
+            <td colspan="2"><strong>TOTAL OPEX ANNUEL</strong></td>
+            <td><strong>1,246,680</strong></td>
+          </tr>
+        </table>
+      </div>
 
       <h3>Financement et ROI</h3>
       <div class="spec-box">
@@ -520,33 +593,35 @@
       </div>
 
       <h3>Risques et Mitigation</h3>
-      <table>
-        <tr><th>Risque</th><th>Probabilité</th><th>Impact</th><th>Mitigation</th></tr>
-        <tr>
-          <td>Résistance opérateurs privés</td>
-          <td>Haute</td>
-          <td>Moyen</td>
-          <td>Cadre légal contraignant + incitations économiques</td>
-        </tr>
-        <tr>
-          <td>Pénurie expertise technique</td>
-          <td>Moyenne</td>
-          <td>Haut</td>
-          <td>Partenariat universités + formation externe</td>
-        </tr>
-        <tr>
-          <td>Instabilité énergétique</td>
-          <td>Haute</td>
-          <td>Haut</td>
-          <td>Triple redondance (réseau + générateur + solaire)</td>
-        </tr>
-        <tr>
-          <td>Attaques cyber adverses</td>
-          <td>Moyenne</td>
-          <td>Très haut</td>
-          <td>Architecture Zero Trust + audits réguliers</td>
-        </tr>
-      </table>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Risque</th><th>Probabilité</th><th>Impact</th><th>Mitigation</th></tr>
+          <tr>
+            <td>Résistance opérateurs privés</td>
+            <td>Haute</td>
+            <td>Moyen</td>
+            <td>Cadre légal contraignant + incitations économiques</td>
+          </tr>
+          <tr>
+            <td>Pénurie expertise technique</td>
+            <td>Moyenne</td>
+            <td>Haut</td>
+            <td>Partenariat universités + formation externe</td>
+          </tr>
+          <tr>
+            <td>Instabilité énergétique</td>
+            <td>Haute</td>
+            <td>Haut</td>
+            <td>Triple redondance (réseau + générateur + solaire)</td>
+          </tr>
+          <tr>
+            <td>Attaques cyber adverses</td>
+            <td>Moyenne</td>
+            <td>Très haut</td>
+            <td>Architecture Zero Trust + audits réguliers</td>
+          </tr>
+        </table>
+      </div>
 
       <h3>Recommandations Finales</h3>
       <div class="spec-box">
@@ -559,4 +634,13 @@
         </ol>
 
         <h4>Vision 2030</h4>
-        <p>La RDC disposera d'une capacité souveraine complète de surveillance des télécommunications, positionnant le pays comme leader régional en cybersécurité et souveraineté numérique.
+        <p>La RDC disposera d'une capacité souveraine complète de surveillance des télécommunications, positionnant le pays comme leader régional en cybersécurité et souveraineté numérique.</p>
+      </div>
+    </section>
+  </main>
+  
+  <div class="footer">
+    <p>Architecture supervision télécom – République Démocratique du Congo | Version 2025</p>
+  </div>
+</body>
+</html>
