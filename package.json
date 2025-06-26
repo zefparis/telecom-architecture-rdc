@@ -1,0 +1,13 @@
+{
+  "name": "telecom-architecture-rdc",
+  "version": "1.0.0",
+  "description": "Architecture de supervision télécom pour la RDC",
+  "main": "index.html",
+  "scripts": {
+    "dev": "serve .",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": ["telecom", "surveillance", "rdc", "architecture"],
+  "author": "Votre nom",
+  "license": "MIT"
+}
